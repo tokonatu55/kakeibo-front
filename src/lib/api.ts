@@ -3,7 +3,8 @@ import { Kakeibo } from '@/types/kakeibo';
 const API_BASE = 'https://your-api-server/api/v1/kakeiboes';
 
 export async function fetchKakeibo(month: string) {
-  const res = await fetch(`${API_BASE}/${month}`);
+  const res = await fetch(`http://localhost:8080/api/v1/kakeiboes/${month}`);
+  //console.log(await res.json());
   return res.json();
 }
 

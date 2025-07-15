@@ -5,13 +5,13 @@ import { Kakeibo } from '@/types/kakeibo';
 import { Button } from '@/components/ui/button';
 
 export default function Page() {
-  const [month, setMonth] = useState('202407');
+  const [month, setMonth] = useState('202507');
   const [data, setData] = useState<Kakeibo[]>([]);
 
   useEffect(() => {
     fetchKakeibo(month).then(setData);
   }, [month]);
-
+console.log(data);
   return (
     <div>
       <h1 className="text-xl font-bold">家計簿一覧（{month}）</h1>
@@ -23,9 +23,10 @@ export default function Page() {
         <thead><tr><th>タイトル</th><th>金額</th><th>備考</th></tr></thead>
         <tbody>
           {data.map(item => (
-            <tr key={item.id}>
+            <tr key={item.kakeibo_id}>
               <td>{item.title}</td>
-              <td>{item.amount}</td>
+              <td>{item.price}</td>
+              <td>{item.target_date}</td>
               <td>{item.note}</td>
             </tr>
           ))}
