@@ -1,0 +1,36 @@
+'use client';
+import { useEffect, useState } from 'react';
+import { fetchKakeibo } from '@/lib/api';
+import { Kakeibo } from '@/types/kakeibo';
+import { Button } from '@/components/ui/button';
+
+export default function Page() {
+  const [month, setMonth] = useState('202407');
+  const [data, setData] = useState<Kakeibo[]>([]);
+
+  useEffect(() => {
+    fetchKakeibo(month).then(setData);
+  }, [month]);
+
+  return (
+    <div>
+      <h1 className="text-xl font-bold">家計簿一覧（{month}）</h1>
+      <div className="my-4 space-x-2">
+        <Button onClick={() => setMonth(prev => `${+prev - 1}`)}>前の月</Button>
+        <Button onClick={() => setMonth(prev => `${+prev + 1}`)}>次の月</Button>
+      </div>
+      <table className="w-full border">
+        <thead><tr><th>タイトル</th><th>金額</th><th>備考</th></tr></thead>
+        <tbody>
+          {data.map(item => (
+            <tr key={item.id}>
+              <td>{item.title}</td>
+              <td>{item.amount}</td>
+              <td>{item.note}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
