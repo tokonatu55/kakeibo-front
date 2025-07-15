@@ -1,17 +1,19 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { fetchKakeibo } from '@/lib/api';
-import { Kakeibo } from '@/types/kakeibo';
 import { Button } from '@/components/ui/button';
+import { KakeiboResponse } from '@/types/kakeiboResponse';
 
 export default function Page() {
   const [month, setMonth] = useState('202507');
-  const [data, setData] = useState<Kakeibo[]>([]);
+  const [data, setData] = useState<KakeiboResponse[]>([]);
 
   useEffect(() => {
-    fetchKakeibo(month).then(setData);
+    fetchKakeibo(month).then(json => {
+      setData(json.kakeiboResponses);
+    });
   }, [month]);
-console.log(data);
+  
   return (
     <div>
       <h1 className="text-xl font-bold">家計簿一覧（{month}）</h1>

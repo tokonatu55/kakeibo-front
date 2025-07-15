@@ -1,4 +1,4 @@
-export interface Kakeibo {
+export interface KakeiboResponse {
   kakeibo_id: number;
   title: string;
   price: number;

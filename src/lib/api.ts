@@ -1,14 +1,14 @@
-import { Kakeibo } from '@/types/kakeibo';
+import { KakeiboResponse } from "@/types/kakeiboResponse";
+import { KakeiboResponseList } from "@/types/kakeiboResponseList";
 
 const API_BASE = 'https://your-api-server/api/v1/kakeiboes';
 
 export async function fetchKakeibo(month: string) {
   const res = await fetch(`http://localhost:8080/api/v1/kakeiboes/${month}`);
-  //console.log(await res.json());
-  return res.json();
+  return res.json() as Promise<KakeiboResponseList>;
 }
 
-export async function createKakeibo(data: Partial<Kakeibo>) {
+export async function createKakeibo(data: Partial<KakeiboResponse>) {
   return fetch(API_BASE, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -16,7 +16,7 @@ export async function createKakeibo(data: Partial<Kakeibo>) {
   });
 }
 
-export async function updateKakeibo(id: number, data: Partial<Kakeibo>) {
+export async function updateKakeibo(id: number, data: Partial<KakeiboResponse>) {
   return fetch(`${API_BASE}/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
