@@ -1,10 +1,12 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { fetchKakeibo } from '@/lib/api';
+import { fetchKakeiboList } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { KakeiboResponse } from '@/types/kakeiboResponse';
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
+  const router = useRouter();
   const [month, setMonth] = useState(() => {
   const today = new Date();
   const year = today.getFullYear();
@@ -14,11 +16,11 @@ export default function Page() {
   const [data, setData] = useState<KakeiboResponse[]>([]);
 
   useEffect(() => {
-    fetchKakeibo(month).then(json => {
+    fetchKakeiboList(month).then(json => {
       setData(json.kakeiboResponses);
     });
   }, [month]);
-  
+
   return (
     <div>
       <h1 className="text-xl font-bold">家計簿一覧（{month}）</h1>
@@ -36,14 +38,18 @@ export default function Page() {
         </thead>
         <tbody>
           {data.map(item => (
-            <tr key={item.kakeiboId}>
+            <tr
+              key={item.kakeiboId}
+              className="cursor-pointer hover:bg-gray-100"
+              onClick={() => router.push(`/edit/${item.kakeiboId}`)}
+            >
               <td>{item.title}</td>
               <td>{item.price}</td>
-              {/* <td>{item.targetDate}</td> */}
               <td>{item.note}</td>
             </tr>
           ))}
         </tbody>
+
       </table>
     </div>
   );
