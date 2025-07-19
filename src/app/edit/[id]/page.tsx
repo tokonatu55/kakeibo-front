@@ -9,22 +9,22 @@ export default function Page() {
   const router = useRouter();
   const { id } = useParams();
   const [title, setTitle] = useState('');
-  const [amount, setAmount] = useState('');
+  const [price, setPrice] = useState('');
   const [note, setNote] = useState('');
 
   useEffect(() => {
     // 初期データ fetch 例
-    fetch(`/api/v1/kakeiboes/${id}`)
+    fetch(`/api/v1/kakeibo/${id}`)
       .then(res => res.json())
       .then(data => {
         setTitle(data.title);
-        setAmount(String(data.amount));
+        setPrice(String(data.price));
         setNote(data.note);
       });
   }, [id]);
 
   const handleUpdate = async () => {
-    await updateKakeibo(Number(id), { title, amount: Number(amount), note });
+    await updateKakeibo(Number(id), { title, price: Number(price), note });
     router.push('/list');
   };
 
@@ -38,7 +38,7 @@ export default function Page() {
   return (
     <div className="space-y-4">
       <Input placeholder="タイトル" value={title} onChange={(e) => setTitle(e.target.value)} />
-      <Input placeholder="金額" value={amount} onChange={(e) => setAmount(e.target.value)} />
+      <Input placeholder="金額" value={price} onChange={(e) => setPrice(e.target.value)} />
       <Input placeholder="備考" value={note} onChange={(e) => setNote(e.target.value)} />
       <div className="space-x-2">
         <Button onClick={handleUpdate}>更新</Button>

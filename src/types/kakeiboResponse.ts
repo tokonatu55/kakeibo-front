@@ -1,7 +1,7 @@
 export interface KakeiboResponse {
-  kakeibo_id: number;
+  kakeiboId: number;
   title: string;
   price: number;
-  target_date: string;
+  targetDate: string;
   note: string;
 }

@@ -5,7 +5,12 @@ import { Button } from '@/components/ui/button';
 import { KakeiboResponse } from '@/types/kakeiboResponse';
 
 export default function Page() {
-  const [month, setMonth] = useState('202507');
+  const [month, setMonth] = useState(() => {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = (today.getMonth() + 1).toString().padStart(2, '0');
+  return `${year}${month}`;  // 例: '202507'
+  });
   const [data, setData] = useState<KakeiboResponse[]>([]);
 
   useEffect(() => {
@@ -22,13 +27,19 @@ export default function Page() {
         <Button onClick={() => setMonth(prev => `${+prev + 1}`)}>次の月</Button>
       </div>
       <table className="w-full border">
-        <thead><tr><th>タイトル</th><th>金額</th><th>備考</th></tr></thead>
+        <thead>
+          <tr>
+            <th>タイトル</th>
+            <th>金額</th>
+            <th>備考</th>
+          </tr>
+        </thead>
         <tbody>
           {data.map(item => (
-            <tr key={item.kakeibo_id}>
+            <tr key={item.kakeiboId}>
               <td>{item.title}</td>
               <td>{item.price}</td>
-              <td>{item.target_date}</td>
+              {/* <td>{item.targetDate}</td> */}
               <td>{item.note}</td>
             </tr>
           ))}

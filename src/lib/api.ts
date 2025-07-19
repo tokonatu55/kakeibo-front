@@ -8,8 +8,8 @@ export async function fetchKakeibo(month: string) {
   return res.json() as Promise<KakeiboResponseList>;
 }
 
-export async function createKakeibo(data: Partial<KakeiboResponse>) {
-  return fetch(API_BASE, {
+export async function addKakeibo(data: Partial<KakeiboResponse>) {
+  return fetch(`http://localhost:8080/api/v1/kakeibo`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
