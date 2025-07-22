@@ -11,6 +11,9 @@ export default function Page() {
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState('');
   const [note, setNote] = useState('');
+  const [initialTitle, setInitialTitle] = useState('');
+  const [initialPrice, setInitialPrice] = useState('');
+  const [initialNote, setInitialNote] = useState('');
 
   useEffect(() => {
     // 初期データ fetch 例
@@ -20,11 +23,20 @@ export default function Page() {
         setTitle(data.title);
         setPrice(String(data.price));
         setNote(data.note);
+
+        setInitialTitle(data.title);
+        setInitialPrice(String(data.price));
+        setInitialNote(data.note);
       });
   }, [id]);
 
   const handleUpdate = async () => {
-    await updateKakeibo(Number(id), { title, price: Number(price), note });
+    const updateData: any = {};
+    if (title !== initialTitle) updateData.title = title;
+    if (price !== initialPrice) updateData.price = Number(price);
+    if (note !== initialNote) updateData.note = note;
+
+    await updateKakeibo(Number(id), updateData);
     router.push('/list');
   };
 

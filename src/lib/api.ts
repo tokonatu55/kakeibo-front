@@ -17,15 +17,20 @@ export async function addKakeibo(data: Partial<KakeiboResponse>) {
 }
 
 export async function updateKakeibo(id: number, data: Partial<KakeiboResponse>) {
-  return fetch(`${API_BASE}/${id}`, {
+  const body: any = { kakeiboId: id };
+  if (data.title !== undefined) body.title = data.title;
+  if (data.price !== undefined) body.price = data.price;
+  if (data.note !== undefined) body.note = data.note;
+
+  return fetch(`http://localhost:8080/api/v1/kakeibo`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
+    body: JSON.stringify(body),
   });
 }
 
 export async function deleteKakeibo(id: number) {
-  return fetch(`${API_BASE}/${id}`, { method: 'DELETE' });
+  return fetch(`http://localhost:8080/api/v1/kakeibo/${id}`, { method: 'DELETE' });
 }
 
 export async function fetchKakeiboDetail(id: number) {
