@@ -7,7 +7,7 @@ export function Sidebar() {
     <aside className="w-64 h-screen bg-gray-100 p-4">
       <div className="flex items-center mb-8 space-x-2">
         <FontAwesomeIcon icon={faBook} className="w-10 h-10" />
-        <span className="font-bold">kakibo-app</span>
+        <span className="font-bold">家計簿</span>
       </div>
       <nav className="flex flex-col space-y-4">
         <Link href="/" className="flex items-center space-x-2">

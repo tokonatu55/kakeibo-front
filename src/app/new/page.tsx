@@ -22,11 +22,14 @@ export default function Page() {
 };
 
   return (
-    <div className="space-y-4">
-      <Input placeholder="タイトル" value={title} onChange={(e) => setTitle(e.target.value)} />
-      <Input placeholder="金額" value={price} onChange={(e) => setPrice(e.target.value)} />
-      <Input placeholder="備考" value={note} onChange={(e) => setNote(e.target.value)} />
-      <Button onClick={handleSubmit}>登録</Button>
+    <div className="p-4">
+      <div className="space-y-4">
+        <div className="text-2xl font-bold">新規登録</div>
+        <Input placeholder="タイトル" value={title} onChange={(e) => setTitle(e.target.value)} />
+        <Input placeholder="金額" value={price} onChange={(e) => setPrice(e.target.value)} />
+        <Input placeholder="備考" value={note} onChange={(e) => setNote(e.target.value)} />
+        <Button onClick={handleSubmit}>登録</Button>
+      </div>
     </div>
   );
 }
